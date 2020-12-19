@@ -103,7 +103,7 @@ const TodoCard = ({ todo, actions }) => {
   );
 };
 
-const TodoList = () => {
+const TodoList = ({ selectedDate }) => {
   const todos = useStoreValue("todos");
   const [leftRightTodos, setLeftRightTodos] = useState({ left: [], right: [] });
   const actions = {
@@ -119,14 +119,8 @@ const TodoList = () => {
     });
     setLeftRightTodos({ left, right });
   }, [todos]);
-  return (
-    <Box
-      width="90%"
-      height="90%"
-      display="flex"
-      flexDirection="row"
-      // style={{ backgroundColor: "green" }}
-    >
+  return leftRightTodos.left.length > 0 ? (
+    <Box width="90%" height="90%" display="flex" flexDirection="row">
       <Box height="100%" width="50%">
         {(leftRightTodos.left || []).map((todo) => {
           return (
@@ -145,6 +139,26 @@ const TodoList = () => {
           );
         })}
       </Box>
+    </Box>
+  ) : (
+    <Box
+      width="90%"
+      height="80vh"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      color="#222"
+    >
+      <Typography>
+        {moment(selectedDate).format("dddd, MMMM Do YYYY")}
+      </Typography>
+      <Typography>
+        No any task due{" "}
+        {moment(selectedDate).isSame(moment(), "day")
+          ? "today"
+          : "for this day"}
+      </Typography>
     </Box>
   );
 };

@@ -63,15 +63,15 @@ const AddTask = (props) => {
       props.history.push("/dashboard");
     } else if (task.id) {
       props.history.push("/addEditTask");
-      setTask({ ...task, id: null, title: "", description: "" });
     }
+    setTask({ ...task, id: null, title: "", description: "" });
   };
 
   return (
     <Box
       style={{
         position: "fixed",
-        left: "84px",
+        left: "95px",
         top: "45px",
         width: "100%",
         height: "100%",

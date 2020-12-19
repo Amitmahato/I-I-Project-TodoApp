@@ -110,7 +110,7 @@ const Dashboard = () => {
         )}
       </Box>
       <Box pl={1} mt={6} pb={4} flexGrow={1}>
-        <TodoList />
+        <TodoList selectedDate={date} />
       </Box>
     </Box>
   ) : null;
