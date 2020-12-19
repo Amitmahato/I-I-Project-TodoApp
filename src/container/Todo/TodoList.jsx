@@ -23,7 +23,8 @@ import { updateTodoItem } from "../../api/api";
 const useStyles = makeStyles({
   cardRoot: {
     width: "500px",
-    height: "200px",
+    height: "max-content",
+    // height: "200px",
     boxShadow: "-2px 2px 4px 4px rgba(200,200,200,0.9)",
     backgroundColor: "white",
   },
@@ -42,10 +43,11 @@ const useStyles = makeStyles({
   cardContent: {
     marginTop: "-5px",
     maxWidth: "480px",
-    height: "108px",
+    // height: "108px",
+    height: "min-content",
     display: "-webkit-box",
     WebkitBoxOrient: "vertical",
-    WebkitLineClamp: 5,
+    WebkitLineClamp: 8,
     whiteSpace: "wrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -97,7 +99,15 @@ const TodoCard = ({ todo, actions }) => {
       />
       <CardContent className={styles.cardContent}>
         <Typography variant="h5">{todo.title}</Typography>
-        <Typography variant="body1">{todo.content}</Typography>
+        {todo.content.includes("\n") ? (
+          <Box title={todo.content}>
+            {todo.content.split("\n").map((content) => (
+              <Typography variant="body1">{content}</Typography>
+            ))}
+          </Box>
+        ) : (
+          <Typography variant="body1">{todo.content}</Typography>
+        )}
       </CardContent>
     </Card>
   );

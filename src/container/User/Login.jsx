@@ -78,6 +78,7 @@ const LoginForm = (props) => {
           variant="outlined"
           label="Email"
           placeholder="Enter your email"
+          error={showError}
           helperText={showError ? error?.email || "" : ""}
           onChange={(e) => {
             const email = e.target.value;
@@ -92,6 +93,7 @@ const LoginForm = (props) => {
           label="Password"
           type="password"
           placeholder="Enter your password"
+          error={showError}
           helperText={showError ? error?.password || "" : ""}
           onChange={(e) => {
             const password = e.target.value;
@@ -130,6 +132,13 @@ const LoginForm = (props) => {
                   password: credentials.password,
                 });
                 if (response) props.history.push("/");
+                else {
+                  setError({
+                    password:
+                      "Email or password is incorrect, please try again!",
+                  });
+                  setShowError(true);
+                }
               } else setShowError(true);
             }}
           >
