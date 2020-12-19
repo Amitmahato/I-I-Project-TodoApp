@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { withStore } from "react-context-hook";
+import { history, initialStore } from "./store/store";
+import "./App.css";
+import Routes from "./Routes";
+import { loadUserToStore } from "./auth/authentication";
+import NavigationBar from "./container/NavigationBar";
 
-function App() {
+const App = () => {
+  useEffect(() => loadUserToStore(), []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={history}>
+      <div className="App">
+        <Routes />
+        <NavigationBar history={history} />
+      </div>
+    </Router>
   );
-}
+};
 
-export default App;
+export default withStore(App, initialStore);
